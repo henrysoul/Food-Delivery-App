@@ -1,0 +1,1 @@
+Food Delivery App allows customers to place orders for food and gets delivered
