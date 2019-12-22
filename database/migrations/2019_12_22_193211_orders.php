@@ -22,7 +22,7 @@ class Orders extends Migration
             $table->string('description');
             $table->string('address');
             $table->string('area');
-            $table->string('state');
+            $table->smallInteger('state');
             $table->string('payment_type');
             $table->boolean('delivery_status');
             $table->timestamps();
