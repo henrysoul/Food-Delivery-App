@@ -5,8 +5,8 @@ import { Home } from './website/Home';
 import { Signup } from './website/Signup';
 import { Login } from './website/Login';
 import { NoMatch } from './website/NoMatch';
-import { NavigationBar }  from './Layouts/NavigationBar';
-
+import { NavigationBar }  from './Navigation/NavigationBar';
+import { Container } from "react-bootstrap";
 export default class Example extends Component {
     render() {
         return (
