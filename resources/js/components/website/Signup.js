@@ -13,8 +13,27 @@ const Styles = styled.div`
  
 export default class Signup extends Component{
 
-    handleSubmit =()=>{
-        console.log("submitted");
+    constructor(props){
+        super(props);
+        this.state = {
+            name: null,
+            email:null,
+            phone:null,
+            password:null,
+            confirm_password:null,
+        }
+
+    }
+
+    handleSubmit =(e)=>{
+        e.preventDefault();
+        const data = this.state;
+    }
+
+    inputChangeHandler = (e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        });
     }
     
     render() {
@@ -28,13 +47,16 @@ export default class Signup extends Component{
                             <Col lg="3">
                                 <Form.Group  controlId="name">
                                     <Form.Label>Name</Form.Label>
-                                        <Form.Control   type="text" placeholder="Enter name" />
+                                        <Form.Control  name="name" onChange={this.inputChangeHandler} required  type="text" placeholder="Enter name" />
                                 </Form.Group>
+                                <Form.Control.Feedback type="invalid">
+                                    Please choose a username.
+                                </Form.Control.Feedback>
                             </Col>
                             <Col lg="3">
                                 <Form.Group  controlId="email">
                                     <Form.Label>Emial</Form.Label>
-                                        <Form.Control   type="email" placeholder="Enter email" />
+                                        <Form.Control name="email"  onChange={this.inputChangeHandler} required type="email" placeholder="Enter email" />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -42,7 +64,7 @@ export default class Signup extends Component{
                             <Col lg="6">
                                 <Form.Group  controlId="phone">
                                     <Form.Label>Phone</Form.Label>
-                                        <Form.Control   type="number" placeholder="Enter phone" />
+                                        <Form.Control name="phone"  onChange={this.inputChangeHandler} required  type="number" placeholder="Enter phone" />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -51,13 +73,13 @@ export default class Signup extends Component{
                             <Col lg="3">
                                 <Form.Group  controlId="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control  type="password" placeholder="Password" />
+                                    <Form.Control name="password" onChange={this.inputChangeHandler} required  type="password" placeholder="Password" />
                                 </Form.Group>
                             </Col>
                             <Col lg="3">
                                 <Form.Group  controlId="confirm_password">
                                     <Form.Label>Password Confirmation</Form.Label>
-                                    <Form.Control  type="password" placeholder="Password" />
+                                    <Form.Control name="confirm_password" onChange={this.inputChangeHandler} required type="password" placeholder="Password" />
                                 </Form.Group>
                             </Col>
                         </Row>
