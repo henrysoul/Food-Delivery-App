@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home } from './website/Home';
-import { Signup } from './website/Signup';
-import { Login } from './website/Login';
-import { NoMatch } from './website/NoMatch';
+import  Signup  from './website/Signup';
+import  Login  from './website/Login';
+import { NoMatch }  from './website/NoMatch';
 import { NavigationBar }  from './Navigation/NavigationBar';
-import { Container } from "react-bootstrap";
 export default class Example extends Component {
     render() {
         return (
