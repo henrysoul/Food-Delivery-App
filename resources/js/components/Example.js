@@ -6,6 +6,9 @@ import  Signup  from './website/Signup';
 import  Login  from './website/Login';
 import { NoMatch }  from './website/NoMatch';
 import { NavigationBar }  from './Navigation/NavigationBar';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:8000/api';
 export default class Example extends Component {
     render() {
         return (

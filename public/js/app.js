@@ -72734,6 +72734,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _website_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./website/Login */ "./resources/js/components/website/Login.js");
 /* harmony import */ var _website_NoMatch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./website/NoMatch */ "./resources/js/components/website/NoMatch.js");
 /* harmony import */ var _Navigation_NavigationBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Navigation/NavigationBar */ "./resources/js/components/Navigation/NavigationBar.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72760,6 +72762,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+axios__WEBPACK_IMPORTED_MODULE_8___default.a.defaults.baseURL = 'http://localhost:8000/api';
 
 var Example =
 /*#__PURE__*/
@@ -72892,7 +72896,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Row */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap/Col */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/Alert */ "./node_modules/react-bootstrap/esm/Alert.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72903,13 +72910,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n    margin-top:50px;\n"]);
@@ -72930,23 +72939,84 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Styles = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject());
+
+
+var Styles = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject());
 
 var Login =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Login, _Component);
 
-  function Login() {
+  function Login(props) {
+    var _this;
+
     _classCallCheck(this, Login);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Login).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "submitHandler", function (e) {
+      e.preventDefault();
+      var data = {
+        email: _this.state.email,
+        password: _this.state.password
+      };
+      axios__WEBPACK_IMPORTED_MODULE_8___default.a.post('/login', data).then(function (response) {
+        console.log(response);
+
+        _this.setState({
+          alertMessage: "Success, A confirmation link is sent to your email",
+          alert: true,
+          first_name: '',
+          last_name: '',
+          email: '',
+          phone: '',
+          password: '',
+          password_confirm: ''
+        });
+      })["catch"](function (error) {
+        _this.setState({
+          error: true,
+          alertMessage: error.response.data.message,
+          alert: true
+        });
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "inputChangeHandler", function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "dismissErrorMessageHandler", function () {
+      _this.setState({
+        alert: false
+      });
+    });
+
+    _this.state = {
+      email: '',
+      password: '',
+      alert: false,
+      alertMessage: null,
+      errror: false
+    };
+    return _this;
   }
 
   _createClass(Login, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Styles, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Styles, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.state.alert ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "justify-content-md-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        lg: "6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        variant: this.state.error ? 'danger' : 'success',
+        onClose: this.dismissErrorMessageHandler,
+        dismissible: true
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.alertMessage)))) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        onSubmit: this.submitHandler
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__["default"], {
         className: "justify-content-md-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_5__["default"], {
         lg: "6"
@@ -72954,6 +73024,9 @@ function (_Component) {
         controlId: "formBasicEmail"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Label, null, "Email address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Control, {
         type: "email",
+        value: this.state.email,
+        onChange: this.inputChangeHandler,
+        name: "email",
         placeholder: "Enter email"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__["default"], {
         className: "justify-content-md-center"
@@ -72963,6 +73036,9 @@ function (_Component) {
         controlId: "formBasicPassword"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Label, null, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Control, {
         type: "password",
+        value: this.state.password,
+        onChange: this.inputChangeHandler,
+        name: "password",
         placeholder: "Password"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_4__["default"], {
         className: "justify-content-md-center"
@@ -73023,7 +73099,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap/Row */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/Col */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap/Alert */ "./node_modules/react-bootstrap/esm/Alert.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73064,7 +73143,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Styles = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject());
+
+
+var Styles = styled_components__WEBPACK_IMPORTED_MODULE_8__["default"].div(_templateObject());
 
 var Signup =
 /*#__PURE__*/
@@ -73078,21 +73159,56 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Signup).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "submitHandler", function (e) {
       e.preventDefault();
-      var data = _this.state;
+      var data = {
+        first_name: _this.state.first_name,
+        last_name: _this.state.last_name,
+        email: _this.state.email,
+        phone: _this.state.phone,
+        password: _this.state.password,
+        password_confirm: _this.state.password_confirm
+      };
+      axios__WEBPACK_IMPORTED_MODULE_9___default.a.post('/register', data).then(function (response) {
+        _this.setState({
+          alertMessage: "Success, A confirmation link is sent to your email",
+          alert: true,
+          first_name: '',
+          last_name: '',
+          email: '',
+          phone: '',
+          password: '',
+          password_confirm: ''
+        });
+      })["catch"](function (error) {
+        _this.setState({
+          error: true,
+          alertMessage: error.response.data.message,
+          alert: true
+        });
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "inputChangeHandler", function (e) {
       _this.setState(_defineProperty({}, e.target.name, e.target.value));
     });
 
+    _defineProperty(_assertThisInitialized(_this), "dismissErrorMessageHandler", function () {
+      _this.setState({
+        alert: false
+      });
+    });
+
     _this.state = {
-      name: null,
-      email: null,
-      phone: null,
-      password: null,
-      confirm_password: null
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      password: '',
+      password_confirm: '',
+      alert: false,
+      alertMessage: null,
+      error: false
     };
     return _this;
   }
@@ -73100,44 +73216,64 @@ function (_Component) {
   _createClass(Signup, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Styles, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Signup"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        onSubmit: this.handleSubmit
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Styles, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Signup"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.state.alert ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        className: "justify-content-md-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        lg: "6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        variant: this.state.error ? 'danger' : 'success',
+        onClose: this.dismissErrorMessageHandler,
+        dismissible: true
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.alertMessage)))) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        onSubmit: this.submitHandler
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "justify-content-md-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
         lg: "3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
-        controlId: "name"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
-        name: "name",
+        controlId: "first_name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
+        name: "first_name",
         onChange: this.inputChangeHandler,
+        value: this.state.first_name,
         required: true,
         type: "text",
-        placeholder: "Enter name"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control.Feedback, {
-        type: "invalid"
-      }, "Please choose a username.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        placeholder: ""
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        lg: "3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
+        controlId: "last_name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
+        name: "last_name",
+        onChange: this.inputChangeHandler,
+        value: this.state.last_name,
+        required: true,
+        type: "text",
+        placeholder: ""
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        className: "justify-content-md-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
         lg: "3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
         controlId: "email"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Emial"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
         name: "email",
         onChange: this.inputChangeHandler,
+        value: this.state.email,
         required: true,
         type: "email",
-        placeholder: "Enter email"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        className: "justify-content-md-center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        lg: "6"
+        placeholder: ""
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        lg: "3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
         controlId: "phone"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Phone"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
         name: "phone",
         onChange: this.inputChangeHandler,
         required: true,
+        value: this.state.phone,
         type: "number",
-        placeholder: "Enter phone"
+        placeholder: ""
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "justify-content-md-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -73147,19 +73283,21 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
         name: "password",
         onChange: this.inputChangeHandler,
+        value: this.state.password,
         required: true,
         type: "password",
-        placeholder: "Password"
+        placeholder: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
         lg: "3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
-        controlId: "confirm_password"
+        controlId: "password_confirm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Password Confirmation"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
-        name: "confirm_password",
+        name: "password_confirm",
         onChange: this.inputChangeHandler,
+        value: this.state.password_confirm,
         required: true,
         type: "password",
-        placeholder: "Password"
+        placeholder: ""
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "justify-content-md-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {

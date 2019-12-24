@@ -20,12 +20,13 @@ class AccountController extends Controller
             'email'=>'required|email|unique:users',
             'phone'=>'required|max:11',
             'password'=>'required|min:6',
-            'password_confirm'=>'required|same:password|min:6'
+            'password_confirm'=>'same:password'
         ]);
 
         if($validator->fails()){
             // report error
-            return response()->json(['status'=>400,'message'=>'Bad Request','error'=>$validator->errors()]);
+            return response()->json(['message'=>$validator->errors()->first()],400);
+            // return response()->json(['status'=>400,'message'=>'Bad Request','error'=>$validator->errors()]);
         }else{
             try {
                 // creates user
@@ -34,10 +35,10 @@ class AccountController extends Controller
                 ]);
                 $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>$user->name];
 
-                return response()->json(['status'=>200,'message'=>'ok','success'=>$success]);
+                return response()->json(['response'=>$success],200);
             } catch (\Exception $ex) {
                 // return error in creating user
-                return response()->json(['status'=>500,'message'=>'Internal Server Error']);
+                return response()->json(['message'=>'Internal Server Error'],500);
             }
         }
 
@@ -52,16 +53,16 @@ class AccountController extends Controller
 
         if($validator->fails()){
             // report error
-            return response()->json(['status'=>400,'message'=>'Bad Request','error'=>$validator->errors()]);
+            return response()->json(['message'=>$validator->errors()->first()],400);
         }else{
                 // checks users credentials
                 if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
                     $user = Auth()->user();
                     $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>Auth()->user()->name,'email'=>Auth()->user()->email];    
-                    return response()->json(['status'=>200,'message'=>'ok','success'=>$success]);
+                    return response()->json(['response'=>$success],200);
                 }else{
-                    // return error in creating user
-                    return response()->json(['error'=>'Unauthorised'],400);
+                    // return login error
+                    return response()->json(['message'=>'Invalid credentials'],400);
                 }
         }
     }
