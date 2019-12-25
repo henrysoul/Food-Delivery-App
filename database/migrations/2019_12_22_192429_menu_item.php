@@ -15,10 +15,11 @@ class MenuItem extends Migration
     {
         Schema::create('menu_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('menu_type_id');
+            $table->bigInteger('food_type');
             $table->smallInteger('price');
             $table->string('description');
-            $table->string('image_url');
+            $table->smallInteger('quantity');
+            $table->string('picture');
             $table->boolean('available');
             $table->timestamps();
         });
