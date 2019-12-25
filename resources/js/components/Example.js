@@ -13,9 +13,13 @@ import reducer from '../store/reducer/auth';
 import thunk from 'redux-thunk';
 import Dashboard from './Pages/Partials/Dashboard';
 import auth from '../store/reducer/auth';
+import AddMenuItems from './Pages/Admin/AddMenuItems';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
 class Example extends Component {
+    componentDidMount() {
+        document.body.style.backgroundColor = "#ededed";
+    }
     render() {
         return (
             <React.Fragment>
@@ -26,6 +30,7 @@ class Example extends Component {
                         <Route  path="/signup" component={Signup} />
                         <Route  path="/login" component={Login} />
                         <Route  path="/dashboard" component={Dashboard} />
+                        <Route  path="/add_menu_items" component ={AddMenuItems}/>
                         <Route component={NoMatch} />
                     </Switch>
                 </Router>
