@@ -7,9 +7,15 @@ import  Login  from './website/Login';
 import { NoMatch }  from './website/NoMatch';
 import { NavigationBar }  from './Navigation/NavigationBar';
 import axios from 'axios';
+import { createStore, applyMiddleware, combineReducers} from 'redux';
+import { Provider } from 'react-redux';
+import reducer from '../store/reducer/auth';
+import thunk from 'redux-thunk';
+import Dashboard from './Pages/Partials/Dashboard';
+import auth from '../store/reducer/auth';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
-export default class Example extends Component {
+class Example extends Component {
     render() {
         return (
             <React.Fragment>
@@ -19,7 +25,8 @@ export default class Example extends Component {
                         <Route exact path="/" component={Home} />
                         <Route  path="/signup" component={Signup} />
                         <Route  path="/login" component={Login} />
-                        <Route   component={NoMatch} />
+                        <Route  path="/dashboard" component={Dashboard} />
+                        <Route component={NoMatch} />
                     </Switch>
                 </Router>
             </React.Fragment>
@@ -27,6 +34,13 @@ export default class Example extends Component {
     }
 }
 
+const rootReducer = combineReducers({
+    auth: auth
+});
+
+
+const store = createStore(rootReducer,applyMiddleware(thunk));
 if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+    ReactDOM.render(<Provider store={store}><Example /></Provider>, document.getElementById('example'));
 }
+export default Example

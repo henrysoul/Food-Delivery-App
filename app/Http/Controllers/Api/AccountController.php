@@ -58,7 +58,8 @@ class AccountController extends Controller
                 // checks users credentials
                 if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
                     $user = Auth()->user();
-                    $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>Auth()->user()->name,'email'=>Auth()->user()->email];    
+                    $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>Auth()->user()->name,'email'=>Auth()->user()->email,'phone'=>Auth()->user()->phone];    
+                    // $success = ['token'=>$user->createToken('MyApp')->accessToken];    
                     return response()->json(['response'=>$success],200);
                 }else{
                     // return login error

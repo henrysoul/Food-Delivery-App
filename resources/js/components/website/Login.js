@@ -7,44 +7,32 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import styled from 'styled-components';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { userLoginFetch } from '../Auth/loginaction';
+import * as actionTypes from '../../store/actions';
+import { Redirect } from 'react-router-dom';
 
 const Styles = styled.div`
     margin-top:50px;
 `;
 
-
-export default class Login extends Component {
+class  Login extends Component {
     constructor(props){
         super(props);
         this.state = {
             email: '',
             password: '',
-            alert:false,
-            alertMessage:null,
-            errror:false
         }
 
     }
 
     submitHandler=(e)=>{
-
         e.preventDefault();
         const data = {
             email: this.state.email,
             password: this.state.password,
         }
-        axios.post('/login',data)
-            .then(response=>{
-                console.log(response);
-                this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
-                    first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
-                });
-
-            })
-            .catch(error=>{
-                this.setState({error:true,alertMessage:error.response.data.message,alert:true});
-            })
-        
+        this.props.userLoginFetch(data)        
     }
 
     inputChangeHandler = (e)=>{
@@ -53,24 +41,22 @@ export default class Login extends Component {
         });
     }
 
-    dismissErrorMessageHandler =()=>{
-        this.setState({
-            alert:false
-        });
-    }
+
 
     render(){
+        
         return(
             <Container>
                 <Styles>
                     <h3>Login</h3><hr/>
+                    {this.props.auth.isAuthenticated?<Redirect to="/dashboard"/>:''}
                     {/* Message Alerts */}
-                    {(this.state.alert)?
+                    {(this.props.auth.alert)?
                         <Row className="justify-content-md-center">
                             <Col lg="6">
-                                <Alert variant={(this.state.error)?'danger':'success'} onClose={ this.dismissErrorMessageHandler} dismissible>
+                                <Alert variant={(this.props.auth.error)?'danger':'success'} onClose={ this.props.dismissErrorMessageHandler } dismissible>
                                     <p>
-                                        {this.state.alertMessage}
+                                        {this.props.auth.alertMessage}
                                     </p>
                                 </Alert>
                             </Col>
@@ -108,3 +94,19 @@ export default class Login extends Component {
     }
     
 }
+const mapStateToProps = state =>{
+    return {
+        auth: state.auth
+    };
+}
+
+const loginUser  = (user) =>({
+    type: LOGIN_USER,
+    payload :token
+});
+
+const mapDispatchToProps = dispatch => ({
+    userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
+    dismissErrorMessageHandler:()=>dispatch({ type:actionTypes.DISMISS_ALERT})
+})
+export default  connect(mapStateToProps,mapDispatchToProps)(Login);

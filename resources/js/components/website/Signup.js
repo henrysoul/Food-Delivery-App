@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import styled from 'styled-components';
 import axios from 'axios';
+import {Link,Route} from 'react-router-dom';
 
 const Styles = styled.div`
         margin-top:50px;
@@ -47,6 +48,7 @@ export default class Signup extends Component{
                 this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
                     first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
                 });
+                console.log(response.data);
 
             })
             .catch(error=>{
@@ -132,10 +134,14 @@ export default class Signup extends Component{
                         <Row className="justify-content-md-center">
                             <Col lg="6">
                                     <Button variant="primary" type="submit" block>
-                                        Login
+                                        SignUp
                                     </Button>
+                                    <p style={{color:'red'}}>
+                                        Already have an account? <Link to="/login">SignIn</Link>
+                                    </p>
                             </Col>
                         </Row>
+                        
                     </Form>
                 </Styles>
             </Container>
