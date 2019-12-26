@@ -87120,7 +87120,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104084,6 +104084,7 @@ var userLoginFetch = function userLoginFetch(user) {
   return function (dispatch) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/login', user).then(function (response) {
       var token = response.data.response;
+      console.log(token);
       localStorage.setItem('jwtToken', token);
       dispatch(loginUser(token));
     })["catch"](function (error) {
@@ -104357,8 +104358,22 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "submitHandler", function (e) {
       e.preventDefault();
-      console.log(_this.state); // data = this.state.formData
-      // axios.post('/add_menu_items',)       
+      var data = {
+        food_type: _this.state.food_type,
+        price: _this.state.price,
+        available: _this.state.available,
+        quantity: _this.state.quantity,
+        picture: _this.state.picture,
+        description: _this.state.description
+      };
+      axios__WEBPACK_IMPORTED_MODULE_9___default.a.post('/add_menu_items', data).then(function (response) {
+        // this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
+        //     first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
+        // });
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error); // this.setState({error:true,alertMessage:error.response.data.message,alert:true});
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "inputChangeHandler", function (e) {
@@ -105219,7 +105234,8 @@ var initialState = {
   token: null,
   alert: false,
   error: false,
-  alertMessage: null
+  alertMessage: null,
+  user: null
 };
 
 var reducer = function reducer() {

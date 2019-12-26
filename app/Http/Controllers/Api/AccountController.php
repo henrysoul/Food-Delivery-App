@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
 use App\User;
-
 class AccountController extends Controller
 {
     // this function creates a customer
@@ -22,7 +19,6 @@ class AccountController extends Controller
             'password'=>'required|min:6',
             'password_confirm'=>'same:password'
         ]);
-
         if($validator->fails()){
             // report error
             return response()->json(['message'=>$validator->errors()->first()],400);
@@ -33,24 +29,20 @@ class AccountController extends Controller
                 $user = User::create(['group_id'=>100,'name'=>$request->first_name.' '.$request->last_name,'email'=>$request->email,
                     'phone'=>$request->phone,'password'=>Hash::make($request->password),
                 ]);
-                $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>$user->name];
-
+                $success = ['token'=>$user->createToken('myapp')->accessToken,'name'=>$user->name];
                 return response()->json(['response'=>$success],200);
             } catch (\Exception $ex) {
                 // return error in creating user
                 return response()->json(['message'=>'Internal Server Error'],500);
             }
         }
-
     }
-
     public function login(Request $request){
         // vaildates http request
         $validator = Validator::make($request->all(),[
             'email'=>'required|email',
             'password'=>'required',
         ]);
-
         if($validator->fails()){
             // report error
             return response()->json(['message'=>$validator->errors()->first()],400);
@@ -58,7 +50,7 @@ class AccountController extends Controller
                 // checks users credentials
                 if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
                     $user = Auth()->user();
-                    $success = ['token'=>$user->createToken('MyApp')->accessToken,'name'=>Auth()->user()->name,'email'=>Auth()->user()->email,'phone'=>Auth()->user()->phone];    
+                    $success = ['token'=>$user->createToken('myapp')->accessToken,'name'=>Auth()->user()->name,'email'=>Auth()->user()->email,'phone'=>Auth()->user()->phone];    
                     // $success = ['token'=>$user->createToken('MyApp')->accessToken];    
                     return response()->json(['response'=>$success],200);
                 }else{

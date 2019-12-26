@@ -30,9 +30,26 @@ class AddMenuItems extends Component {
 
     submitHandler=(e)=>{
         e.preventDefault();
-        console.log(this.state)
-        // data = this.state.formData
-        // axios.post('/add_menu_items',)       
+        const data = {
+            food_type: this.state.food_type,
+            price: this.state.price,
+            available: this.state.available,
+            quantity: this.state.quantity,
+            picture: this.state.picture,
+            description: this.state.description
+        }
+        axios.post('/add_menu_items',data)
+            .then(response=>{
+                // this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
+                //     first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
+                // });
+                console.log(response.data);
+
+            })
+            .catch(error=>{
+                console.log(error);
+                // this.setState({error:true,alertMessage:error.response.data.message,alert:true});
+            })       
     }
 
     inputChangeHandler = (e)=>{

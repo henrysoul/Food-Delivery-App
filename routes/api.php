@@ -13,12 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('register','Api\AccountController@register');
-Route::post('login','Api\AccountController@login');
 
+// Route::get('/login',function(){
+//     return response()->json(['unathorized',401]);
+// });
+
+Route::post('register','Api\AccountController@register');
+Route::post('login','Api\AccountController@login');  
+Route::get('login',function(){
+    return "Un Authorised";
+})->name('login');
 // secured routes
+
 Route::group(['middleware'=>'auth:api'],function(){
-    
+    Route::post('add_menu_items','Api\MenuItemsController@save');   
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -5,7 +5,8 @@ const initialState = {
     token : null,
     alert: false,
     error: false,
-    alertMessage: null
+    alertMessage: null,
+    user: null
 }
 const reducer = (state = initialState,action) => {
     switch ( action.type ) {

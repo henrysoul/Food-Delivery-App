@@ -8,6 +8,7 @@ export const userLoginFetch  = user => {
       return axios.post('/login',user)
       .then(response => {
           const token = response.data.response;
+          console.log(token);
           localStorage.setItem('jwtToken',token);
           dispatch(loginUser(token));
 

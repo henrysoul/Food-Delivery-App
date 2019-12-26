@@ -19,7 +19,7 @@ class MenuItem extends Migration
             $table->smallInteger('price');
             $table->string('description');
             $table->smallInteger('quantity');
-            $table->string('picture');
+            $table->binary('picture');
             $table->boolean('available');
             $table->timestamps();
         });
