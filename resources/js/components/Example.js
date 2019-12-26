@@ -14,9 +14,13 @@ import thunk from 'redux-thunk';
 import Dashboard from './Pages/Partials/Dashboard';
 import auth from '../store/reducer/auth';
 import AddMenuItems from './Pages/Admin/AddMenuItems';
+import setAuthorizationToken from './Auth/setAuthorizationToken';
+
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
+
 class Example extends Component {
+    
     componentDidMount() {
         document.body.style.backgroundColor = "#ededed";
     }
@@ -43,7 +47,7 @@ const rootReducer = combineReducers({
     auth: auth
 });
 
-
+setAuthorizationToken(localStorage.bearer);
 const store = createStore(rootReducer,applyMiddleware(thunk));
 if (document.getElementById('example')) {
     ReactDOM.render(<Provider store={store}><Example /></Provider>, document.getElementById('example'));

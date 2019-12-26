@@ -87120,7 +87120,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104084,8 +104084,13 @@ var userLoginFetch = function userLoginFetch(user) {
   return function (dispatch) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/login', user).then(function (response) {
       var token = response.data.response;
-      console.log(token);
-      localStorage.setItem('jwtToken', token);
+      localStorage.setItem('token', token);
+      localStorage.setItem('name', token.name);
+      localStorage.setItem('email', token.email);
+      localStorage.setItem('phone', token.phone);
+      localStorage.setItem('group_id', token.group_id);
+      localStorage.setItem('bearer', token.token);
+      console.log(response);
       dispatch(loginUser(token));
     })["catch"](function (error) {
       var message = error.response.data.message;
@@ -104105,6 +104110,31 @@ var alert = function alert(message) {
     message: message
   };
 };
+
+/***/ }),
+
+/***/ "./resources/js/components/Auth/setAuthorizationToken.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/Auth/setAuthorizationToken.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var setAuthorizationToken = function setAuthorizationToken(token) {
+  if (token) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = "Bearer ".concat(token);
+  } else {
+    delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'];
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (setAuthorizationToken);
 
 /***/ }),
 
@@ -104135,6 +104165,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var _Pages_Partials_Dashboard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Pages/Partials/Dashboard */ "./resources/js/components/Pages/Partials/Dashboard.js");
 /* harmony import */ var _Pages_Admin_AddMenuItems__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Pages/Admin/AddMenuItems */ "./resources/js/components/Pages/Admin/AddMenuItems.js");
+/* harmony import */ var _Auth_setAuthorizationToken__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Auth/setAuthorizationToken */ "./resources/js/components/Auth/setAuthorizationToken.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -104152,6 +104183,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -104218,6 +104250,7 @@ function (_Component) {
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_9__["combineReducers"])({
   auth: _store_reducer_auth__WEBPACK_IMPORTED_MODULE_11__["default"]
 });
+Object(_Auth_setAuthorizationToken__WEBPACK_IMPORTED_MODULE_15__["default"])(localStorage.bearer);
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_9__["createStore"])(rootReducer, Object(redux__WEBPACK_IMPORTED_MODULE_9__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_12__["default"]));
 
 if (document.getElementById('example')) {
@@ -104358,30 +104391,46 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "submitHandler", function (e) {
       e.preventDefault();
-      var data = {
-        food_type: _this.state.food_type,
-        price: _this.state.price,
-        available: _this.state.available,
-        quantity: _this.state.quantity,
-        picture: _this.state.picture,
-        description: _this.state.description
+      var fd = new FormData();
+      fd.append('picture', _this.state.picture, _this.state.picture.name);
+      fd.append('food_type', _this.state.food_type);
+      fd.append('price', _this.state.price);
+      fd.append('available', _this.state.available);
+      fd.append('description', _this.state.description);
+      fd.append('quantity', _this.state.quantity);
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       };
-      axios__WEBPACK_IMPORTED_MODULE_9___default.a.post('/add_menu_items', data).then(function (response) {
-        // this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
-        //     first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
-        // });
-        console.log(response.data);
+      axios__WEBPACK_IMPORTED_MODULE_9___default.a.post('/add_menu_items', fd, config).then(function (response) {
+        _this.setState({
+          alertMessage: "Menu item added successfully",
+          alert: true
+        });
       })["catch"](function (error) {
-        console.log(error); // this.setState({error:true,alertMessage:error.response.data.message,alert:true});
+        _this.setState({
+          error: true,
+          alertMessage: error.response.data.message,
+          alert: true
+        });
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "inputChangeHandler", function (e) {
-      if (e.target.name === "picture") {
-        _this.setState(_defineProperty({}, e.target.name, e.target.files[0]));
-      }
-
       _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getPicture", function (e) {
+      _this.setState({
+        picture: e.target.files[0]
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "dismissErrorMessageHandler", function () {
+      _this.setState({
+        alert: false
+      });
     });
 
     _this.state = {
@@ -104390,7 +104439,10 @@ function (_Component) {
       available: '',
       quantity: '',
       picture: '',
-      description: ''
+      description: '',
+      alert: false,
+      alertMessage: null,
+      error: false
     };
     return _this;
   }
@@ -104406,7 +104458,15 @@ function (_Component) {
         sm: "8"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_StyledComponents_ContainerWrapperWithBorder__WEBPACK_IMPORTED_MODULE_13__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
         onSubmit: this.submitHandler
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, this.state.alert ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        className: "justify-content-md-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        lg: "6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        variant: this.state.error ? 'danger' : 'success',
+        onClose: this.dismissErrorMessageHandler,
+        dismissible: true
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.alertMessage)))) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
         lg: "4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Group, {
         controlId: "food_type"
@@ -104465,7 +104525,7 @@ function (_Component) {
         controlId: "picture"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Label, null, "Picture"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_3__["default"].Control, {
         name: "picture",
-        onChange: this.inputChangeHandler,
+        onChange: this.getPicture,
         required: true,
         type: "file"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -105231,11 +105291,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   isAuthenticated: false,
-  token: null,
   alert: false,
   error: false,
   alertMessage: null,
-  user: null
+  token: null,
+  name: null,
+  email: null,
+  phone: null,
+  group_id: null,
+  brarer: null
 };
 
 var reducer = function reducer() {
@@ -105246,7 +105310,12 @@ var reducer = function reducer() {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["LOGIN_USER"]:
       return _objectSpread({}, state, {
         isAuthenticated: !state.isAuthenticated,
-        token: action.userObj
+        token: action.userObj.token,
+        bearer: action.userObj.bearer,
+        name: action.userObj.name,
+        email: action.userObj.email,
+        phone: action.userObj.phone,
+        group_id: action.userObj.group_id
       });
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["ERROR_ALERT"]:

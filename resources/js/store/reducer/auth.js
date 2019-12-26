@@ -2,11 +2,15 @@ import * as actionTypes from '../actions';
 
 const initialState = {
     isAuthenticated: false,
-    token : null,
     alert: false,
     error: false,
     alertMessage: null,
-    user: null
+    token : null,
+    name: null,
+    email: null,
+    phone: null,
+    group_id: null,
+    brarer: null
 }
 const reducer = (state = initialState,action) => {
     switch ( action.type ) {
@@ -14,7 +18,13 @@ const reducer = (state = initialState,action) => {
             return {
                 ...state,
                 isAuthenticated : !state.isAuthenticated,
-                token: action.userObj
+                token: action.userObj.token,
+                bearer: action.userObj.bearer,
+                name: action.userObj.name,
+                email: action.userObj.email,
+                phone: action.userObj.phone,
+                group_id: action.userObj.group_id,
+
             }
         case actionTypes.ERROR_ALERT:
             return {

@@ -23,45 +23,54 @@ class AddMenuItems extends Component {
                 available:'',
                 quantity:'',
                 picture:'',
-                description:''
+                description:'',
+                alert:false,
+                alertMessage:null,
+                error:false
         }
 
     }
 
     submitHandler=(e)=>{
         e.preventDefault();
-        const data = {
-            food_type: this.state.food_type,
-            price: this.state.price,
-            available: this.state.available,
-            quantity: this.state.quantity,
-            picture: this.state.picture,
-            description: this.state.description
+            let fd = new FormData();
+                fd.append('picture',this.state.picture,this.state.picture.name);
+                fd.append('food_type',this.state.food_type);
+                fd.append('price',this.state.price);
+                fd.append('available',this.state.available);
+                fd.append('description',this.state.description);
+                fd.append('quantity',this.state.quantity);
+        const config = {     
+            headers: { 'content-type': 'multipart/form-data' }
         }
-        axios.post('/add_menu_items',data)
+        
+        axios.post('/add_menu_items',fd,config)
             .then(response=>{
-                // this.setState({alertMessage:"Success, A confirmation link is sent to your email",alert:true,
-                //     first_name:'',last_name:'',email:'',phone:'',password:'',password_confirm:''
-                // });
-                console.log(response.data);
+                this.setState({
+                    alertMessage:"Menu item added successfully",alert:true
+                });
 
             })
             .catch(error=>{
-                console.log(error);
-                // this.setState({error:true,alertMessage:error.response.data.message,alert:true});
+                this.setState({error:true,alertMessage:error.response.data.message,alert:true});
             })       
     }
 
     inputChangeHandler = (e)=>{
-
-        if(e.target.name === "picture"){
-            this.setState({
-                [e.target.name]:e.target.files[0]
-            });
-        
-        }
         this.setState({
             [e.target.name]:e.target.value
+        });
+    }
+
+    getPicture = (e) =>{
+        this.setState({
+            picture:e.target.files[0]
+        });
+    }
+
+    dismissErrorMessageHandler =()=>{
+        this.setState({
+            alert:false
         });
     }
 
@@ -76,6 +85,18 @@ class AddMenuItems extends Component {
                         <Col sm="8" >
                             <ContainerWrapperWithBorder>
                             <Form onSubmit={this.submitHandler}>
+                                {/* Message Alerts */}
+                                    {(this.state.alert)?
+                                        <Row className="justify-content-md-center">
+                                            <Col lg="6">
+                                                <Alert variant={(this.state.error)?'danger':'success'} onClose={ this.dismissErrorMessageHandler} dismissible>
+                                                    <p>
+                                                        {this.state.alertMessage}
+                                                    </p>
+                                                </Alert>
+                                            </Col>
+                                        </Row>:''
+                                    }
                                 <Row>
                                     <Col lg="4">
                                     <Form.Group controlId="food_type">
@@ -116,7 +137,7 @@ class AddMenuItems extends Component {
                                     <Col lg="4">
                                         <Form.Group  controlId="picture">
                                             <Form.Label>Picture</Form.Label>
-                                            <Form.Control  name="picture" onChange={this.inputChangeHandler}  required type="file"  />
+                                            <Form.Control  name="picture" onChange={this.getPicture}  required type="file"  />
                                         </Form.Group>
                                     </Col>
                                     <Col lg="4">
