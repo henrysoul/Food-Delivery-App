@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Api\MenuItems;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class MenuItemsController extends Controller
 {
@@ -39,13 +40,16 @@ class MenuItemsController extends Controller
                     if($request->hasfile('picture')){
                         $file = $request->file('picture');
                         $photo_url = "photo".uniqid().'.'.$file->getClientOriginalExtension();
-                        $file->move(public_path("images"),$photo_url);
+                        // $path = Storage::disk('public')->putFileAs(
+                        //     'uploads', $file, $photo_url
+                        // );
+                         $file->move(public_path("images"),$photo_url);
                         $request['picture'] = $photo_url;
                         MenuItems::create(['food_type'=>$request->food_type,'price'=>$request->price,'available'=>$request->available,
                             'quantity'=>$request->quantity,'picture'=>$photo_url,'description'=>$request->description
                         ]); 
                     }
-                    
+                    return $photo_url;
                     return response()->json(['message'=>"Item saved successfully"],200); 
                 }catch (\Exception $ex) {
                    return response()->json(['message'=>'Internal Server Error'],500);

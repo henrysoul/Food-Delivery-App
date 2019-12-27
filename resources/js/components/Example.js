@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home } from './website/Home';
+import  Home  from './website/Home';
 import  Signup  from './website/Signup';
 import  Login  from './website/Login';
 import { NoMatch }  from './website/NoMatch';
@@ -15,6 +15,7 @@ import Dashboard from './Pages/Partials/Dashboard';
 import auth from '../store/reducer/auth';
 import AddMenuItems from './Pages/Admin/AddMenuItems';
 import AddDeliveryGuy from './Pages/Admin/AddDeliveryGuy';
+import DeliveryGuys from './Pages/Admin/DeliveryGuys';
 import setAuthorizationToken from './Auth/setAuthorizationToken';
 import MenuItems from './Pages/Admin/MenuItems';
 
@@ -26,6 +27,7 @@ class Example extends Component {
     componentDidMount() {
         document.body.style.backgroundColor = "#ededed";
     }
+
     render() {
         return (
             <React.Fragment>
@@ -39,6 +41,7 @@ class Example extends Component {
                         <Route  path="/add_menu_items" component ={AddMenuItems}/>
                         <Route  path="/menu_items" component ={MenuItems}/>
                         <Route  path="/add_delivery_guy" component ={AddDeliveryGuy}/>
+                        <Route  path="/delivery_guys" component ={DeliveryGuys}/>
                         <Route component={NoMatch} />
                     </Switch>
                 </Router>

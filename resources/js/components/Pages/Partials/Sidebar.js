@@ -37,7 +37,7 @@ class Siderbar extends Component{
                                     <Accordion.Collapse eventKey="1">
                                     <ListGroup >
                                         <Link to="/add_delivery_guy"><ListGroup.Item action >Add Delivery Guy</ListGroup.Item></Link>
-                                        <Link to="/delivery_guys"><ListGroup.Item action >Add Delivery Guys</ListGroup.Item></Link>
+                                        <Link to="/delivery_guys"><ListGroup.Item action >Delivery Guys</ListGroup.Item></Link>
                                     </ListGroup>
                                     </Accordion.Collapse>
                                 </Card>

@@ -176,6 +176,7 @@ class MenuItem extends Component{
                         </Col>
                         <Col sm="8" >
                             <ContainerWrapperWithBorder>
+                            <h6>Menu Items</h6><hr/>
                                 {/* Message Alerts */}
                                 {(this.state.alert)?
                                     <Row className="justify-content-md-center">
@@ -188,6 +189,7 @@ class MenuItem extends Component{
                                         </Col>
                                     </Row>:''
                                 }
+                                
                             <Table striped bordered hover size="sm" responsive>
                             
                                 <thead>
