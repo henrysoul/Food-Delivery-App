@@ -14,7 +14,6 @@ export const userLoginFetch  = user => {
           localStorage.setItem('phone',token.phone);
           localStorage.setItem('group_id',token.group_id);
           localStorage.setItem('bearer',token.token);
-          console.log(response);
           dispatch(loginUser(token));
 
       })
