@@ -12,6 +12,7 @@ import {Link,Route} from 'react-router-dom';
 import Sidebar from '../Partials/Sidebar';
 import ContainerWrapper  from '../../StyledComponents/ContainerWrapper';
 import ContainerWrapperWithBorder  from '../../StyledComponents/ContainerWrapperWithBorder';
+import { Redirect } from 'react-router-dom';
 
 class AddMenuItems extends Component {
 
@@ -49,6 +50,8 @@ class AddMenuItems extends Component {
                 this.setState({
                     alertMessage:"Menu item added successfully",alert:true
                 });
+                setTimeout(function(){ window.location.replace('/add_menu_items'); }, 1000);
+                
 
             })
             .catch(error=>{
@@ -85,10 +88,11 @@ class AddMenuItems extends Component {
                         <Col sm="8" >
                             <ContainerWrapperWithBorder>
                             <Form onSubmit={this.submitHandler}>
+                            <h6>Add Menu Items</h6><hr/>
                                 {/* Message Alerts */}
                                     {(this.state.alert)?
                                         <Row className="justify-content-md-center">
-                                            <Col lg="6">
+                                            <Col lg="12">
                                                 <Alert variant={(this.state.error)?'danger':'success'} onClose={ this.dismissErrorMessageHandler} dismissible>
                                                     <p>
                                                         {this.state.alertMessage}
@@ -97,6 +101,7 @@ class AddMenuItems extends Component {
                                             </Col>
                                         </Row>:''
                                     }
+
                                 <Row>
                                     <Col lg="4">
                                     <Form.Group controlId="food_type">
