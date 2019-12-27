@@ -104206,7 +104206,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-axios__WEBPACK_IMPORTED_MODULE_8___default.a.defaults.baseURL = 'http://localhost:8000/api';
+axios__WEBPACK_IMPORTED_MODULE_8___default.a.defaults.baseURL = 'http://food-delivery-apps.herokuapp.com/'; // axios.defaults.baseURL = 'http://localhost:8000/api';
 
 var Example =
 /*#__PURE__*/

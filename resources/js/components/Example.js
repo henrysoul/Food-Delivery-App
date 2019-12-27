@@ -20,7 +20,8 @@ import setAuthorizationToken from './Auth/setAuthorizationToken';
 import MenuItems from './Pages/Admin/MenuItems';
 
 
-axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.baseURL = 'http://food-delivery-apps.herokuapp.com/';
+// axios.defaults.baseURL = 'http://localhost:8000/api';
 
 class Example extends Component {
     
