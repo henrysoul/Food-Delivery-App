@@ -26,7 +26,12 @@ class AccountController extends Controller
         }else{
             try {
                 // creates user
-                $user = User::create(['group_id'=>100,'name'=>$request->first_name.' '.$request->last_name,'email'=>$request->email,
+                if($request->admin){
+                    $group_id=200;
+                }else{
+                    $group_id = 100;
+                }
+                $user = User::create(['group_id'=>$group_id,'name'=>$request->first_name.' '.$request->last_name,'email'=>$request->email,
                     'phone'=>$request->phone,'password'=>Hash::make($request->password),
                 ]);
                 $success = ['token'=>$user->createToken('myapp')->accessToken,'name'=>$user->name];
