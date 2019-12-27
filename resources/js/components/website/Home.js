@@ -54,33 +54,33 @@ class Home extends Component{
                         <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e05c3e7035cd.jpg' />
                         <Card.Body>
                         <Card.Text>
-                            This card
+                            
                         </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
+                        <small className="text-muted">₦1,000</small>
                         </Card.Footer>
                     </Card>
                     <Card>
                         <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e05c3e7035cd.jpg' />
                         <Card.Body>
                         <Card.Text>
-                            This is a 
+                            Rice 
                         </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
+                        <small className="text-muted">₦1,500</small>
                         </Card.Footer>
                     </Card>
                     <Card>
                         <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e063420660d2.jpg' />
                         <Card.Body>
                         <Card.Text>
-                            This is a 
+                            Swallow 
                         </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
+                        <small className="text-muted">₦1,000</small>
                         </Card.Footer>
                     </Card>
 
@@ -92,47 +92,47 @@ class Home extends Component{
                     <Row className="justify-content-md-center">{spinner}</Row>
                     <CardDeck>
                         <Card>
-                            <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e05c3e7035cd.jpg'/>
+                            <Card.Img variant="top" width="243px" height="160px" src='/images/4.jpg'/>
                             <Card.Body>
                             <Card.Text>
-                                This is a 
+                                Sweet Meal 
                             </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
+                            <small className="text-muted">₦2,000</small>
                             </Card.Footer>
                         </Card>
                         <Card>
-                            <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e05c3e7035cd.jpg' />
+                            <Card.Img variant="top" width="243px" height="160px" src='/images/3.jpg' />
                             <Card.Body>
                             <Card.Text>
-                                This card
+                            Egusi
                             </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
+                            <small className="text-muted">₦3,000</small>
                             </Card.Footer>
                         </Card>
                         <Card>
-                            <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e05c3e7035cd.jpg' />
+                            <Card.Img variant="top" width="243px" height="160px" src='/images/2.jpg' />
                             <Card.Body>
                             <Card.Text>
-                                This is a 
+                                African special
                             </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
+                            <small className="text-muted">₦2,500</small>
                             </Card.Footer>
                         </Card>
                         <Card>
-                            <Card.Img variant="top" width="243px" height="160px" src='/images/photo5e063420660d2.jpg' />
+                            <Card.Img variant="top" width="243px" height="160px" src='/images/1.jpg' />
                             <Card.Body>
                             <Card.Text>
-                                This is a 
+                            Jollof
                             </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
+                            <small className="text-muted">₦2,500</small>
                             </Card.Footer>
                         </Card>
                         
