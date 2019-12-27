@@ -14,7 +14,9 @@ import thunk from 'redux-thunk';
 import Dashboard from './Pages/Partials/Dashboard';
 import auth from '../store/reducer/auth';
 import AddMenuItems from './Pages/Admin/AddMenuItems';
+import AddDeliveryGuy from './Pages/Admin/AddDeliveryGuy';
 import setAuthorizationToken from './Auth/setAuthorizationToken';
+import MenuItems from './Pages/Admin/MenuItems';
 
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
@@ -35,6 +37,8 @@ class Example extends Component {
                         <Route  path="/login" component={Login} />
                         <Route  path="/dashboard" component={Dashboard} />
                         <Route  path="/add_menu_items" component ={AddMenuItems}/>
+                        <Route  path="/menu_items" component ={MenuItems}/>
+                        <Route  path="/add_delivery_guy" component ={AddDeliveryGuy}/>
                         <Route component={NoMatch} />
                     </Switch>
                 </Router>

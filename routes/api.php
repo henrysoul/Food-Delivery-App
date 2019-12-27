@@ -23,10 +23,13 @@ Route::post('login','Api\AccountController@login');
 Route::get('login',function(){
     return "Un Authorised";
 })->name('login');
-// secured routes
 
+// secured routes
 Route::group(['middleware'=>'auth:api'],function(){
     Route::post('add_menu_items','Api\MenuItemsController@save');   
+    Route::get('menu_items','Api\MenuItemsController@index');   
+    Route::post('update_menu_item/{id}','Api\MenuItemsController@update');   
+    Route::get('delete_menu_item/{id}','Api\MenuItemsController@delete');   
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
