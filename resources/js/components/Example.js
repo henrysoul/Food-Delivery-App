@@ -33,7 +33,7 @@ class Example extends Component {
         return (
             <React.Fragment>
                 <NavigationBar/>
-                <Router>
+                <Router history={hashHistory}>
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route  path="/signup" component={Signup} />
